@@ -1,0 +1,93 @@
+/* ========= ESTILOS PARA LA SECCIÓN DE PLANES (ID: Box-Planes) ========= */
+
+.plans {
+  padding: 4rem 0rem;
+  background-color: var(--color-blanco);
+}
+
+.carousel-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.8s ease-in-out;
+  will-change: transform;
+}
+
+.plan-card {
+  flex: 0 0 calc(50% - 1rem);
+  margin: 0 .5rem;
+  background-color: var(--color-fondo);
+  border: 1px solid var(--color-borde);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.plan-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 119, 255, 0.15);
+}
+
+.plan-title {
+  font-size: var(--tamano-h3);
+  color: var(--color-primario);
+  margin-bottom: 1rem;
+}
+
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+  color: var(--color-texto-claro);
+  flex-grow: 1;
+}
+
+.plan-features li {
+  margin-bottom: 0.5rem;
+  color: var(--color-texto);
+}
+
+.plan-pricing {
+  margin-bottom: 1.5rem;
+}
+
+.price-main {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-texto);
+}
+
+.price-term {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-texto-claro);
+}
+
+.price-secondary {
+  font-size: 0.9rem;
+  color: var(--color-texto-claro);
+  margin-top: 0.25rem;
+}
+
+.plan-cta.btn {
+  width: 100%;
+  text-align: center;
+  margin-top: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .plan-card {
+    flex: 0 0 calc(100% - 1rem);
+  }
+
+  .price-main {
+    font-size: 1.8rem;
+  }
+}

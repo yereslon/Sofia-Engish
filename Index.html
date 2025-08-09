@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Clases de Inglés online con Sofía. Planes personalizados, horarios flexibles y contacto directo." />
+  <title>Clases de Inglés con Sofía - Planes y Horarios</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="estilos.css" />
+  <link rel="stylesheet" href="Box-Planes.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/css/intlTelInput.css" />
+  <style>
+    .iti {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header" role="banner">
+    <nav class="nav container" role="navigation">
+      <a href="#inicio" class="nav__logo">Sofía English</a>
+      <ul class="nav__list">
+        <li class="nav__item"><a href="#Box-Planes" class="nav__link">Nuestros Planes</a></li>
+        <li class="nav__item"><a href="#contacto" class="nav__link">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="main" id="inicio">
+    <section class="hero">
+      <div class="hero__container container">
+        <h1 class="hero__title">Aprende Inglés Online a Tu Ritmo</h1>
+        <p class="hero__subtitle">Clases personalizadas diseñadas para tus metas y necesidades.</p>
+        <div class="hero__benefits" aria-label="Beneficios principales">
+          <div class="benefit-item"><span aria-hidden="true">✓</span> Horarios Flexibles</div>
+          <div class="benefit-item"><span aria-hidden="true">✓</span> Enfoque 100% Práctico</div>
+          <div class="benefit-item"><span aria-hidden="true">✓</span> Material Digital Incluido</div>
+        </div>
+        <a href="#contacto" class="btn">Contáctame</a>
+      </div>
+    </section>
+
+    <section class="plans" id="Box-Planes" aria-labelledby="titulo-planes">
+      <div class="container">
+        <h2 class="section__title" id="titulo-planes">Explora Nuestros Planes</h2>
+        <div class="carousel-container">
+          <div class="carousel-track">
+            <!-- Repite este bloque para cada plan -->
+            <article class="plan-card" aria-label="Plan Inglés Infantil">
+              <h3 class="plan-title">Inglés Infantil</h3>
+              <ul class="plan-features">
+                <li>✓ Juegos y canciones</li>
+                <li>✓ Vocabulario básico</li>
+                <li>✓ Primer contacto divertido</li>
+              </ul>
+              <div class="plan-pricing">
+                <div class="price-main">750€ <span class="price-term">/ 3 meses</span></div>
+                <div class="price-secondary">(o 280€/mes)</div>
+              </div>
+              <a href="#contacto" class="btn plan-cta" data-plan="Inglés Infantil">Más información</a>
+            </article>
+
+            <article class="plan-card" aria-label="Plan Inglés Básico">
+              <h3 class="plan-title">Inglés Básico</h3>
+              <ul class="plan-features">
+                <li>✓ Presente simple y continuo</li>
+                <li>✓ Conversaciones cotidianas</li>
+                <li>✓ Construir confianza al hablar</li>
+              </ul>
+              <div class="plan-pricing">
+                <div class="price-main">870€ <span class="price-term">/ 3 meses</span></div>
+                <div class="price-secondary">(o 320€/mes)</div>
+              </div>
+              <a href="#contacto" class="btn plan-cta" data-plan="Inglés Básico">Más información</a>
+            </article>
+
+            <article class="plan-card" aria-label="Plan Inglés Intermedio">
+              <h3 class="plan-title">Inglés Intermedio</h3>
+              <ul class="plan-features">
+                <li>✓ Tiempos verbales complejos</li>
+                <li>✓ Fluidez y comprensión auditiva</li>
+                <li>✓ Redacción de textos</li>
+              </ul>
+              <div class="plan-pricing">
+                <div class="price-main">1050€ <span class="price-term">/ 3 meses</span></div>
+                <div class="price-secondary">(o 380€/mes)</div>
+              </div>
+              <a href="#contacto" class="btn plan-cta" data-plan="Inglés Intermedio">Más información</a>
+            </article>
+
+            <article class="plan-card" aria-label="Plan Inglés Avanzado">
+              <h3 class="plan-title">Inglés Avanzado</h3>
+              <ul class="plan-features">
+                <li>✓ Perfeccionamiento de acento</li>
+                <li>✓ Inglés de negocios y académico</li>
+                <li>✓ Debate y argumentación</li>
+              </ul>
+              <div class="plan-pricing">
+                <div class="price-main">1260€ <span class="price-term">/ 3 meses</span></div>
+                <div class="price-secondary">(o 450€/mes)</div>
+              </div>
+              <a href="#contacto" class="btn plan-cta" data-plan="Inglés Avanzado">Más información</a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contacto" aria-labelledby="titulo-contacto">
+  <div class="contact__container container">
+    <h2 class="section__title" id="titulo-contacto">¿Listo para Empezar?</h2>
+
+    <div class="contact__grid">
+      
+      <!-- IZQUIERDA: Carrusel de Testimonios -->
+      <aside class="contact__left" aria-label="Testimonios de alumnos">
+        <h3 class="contact__left-title">Lo que dicen nuestros alumnos</h3>
+
+        <div class="testimonials-carousel" aria-roledescription="carousel">
+          <button class="t-btn t-prev" aria-label="Anterior">‹</button>
+
+          <div class="t-viewport">
+            <ul class="t-track">
+              <li class="t-slide">
+                <img class="t-avatar" src="../Clases de Inglés con Sofía/media/testimonial-1.jpg.png" alt="Lucía M.">
+                <blockquote class="t-quote">“En la universidad, mis presentaciones en inglés ahora reciben las mejores calificaciones. Antes me costaba muchísimo pronunciar bien y me ponía muy nerviosa, pero con las clases aprendí técnicas para expresarme con más seguridad. Ahora incluso mis compañeros me piden consejos.”</blockquote>
+                <p class="t-meta">Ana P. 19 años</p>
+              </li>
+              <li class="t-slide">
+                <img class="t-avatar" src="../Clases de Inglés con Sofía/media/testimonial-2.jpg.png" alt="Carlos R.">
+                <blockquote class="t-quote">“Gracias a las clases pude prepararme para una entrevista en inglés y conseguí el trabajo que siempre soñé en una empresa internacional. Lo que más me gustó fue que las lecciones estaban adaptadas a mi sector, así que podía practicar con vocabulario real que uso todos los días.”</blockquote>
+                <p class="t-meta">Lucía M. 23 años</p>
+              </li>
+              <li class="t-slide">
+                <img class="t-avatar" src="../Clases de Inglés con Sofía/media/testimonial-3.jpg.png" alt="Ana P.">
+                <blockquote class="t-quote">“Necesitaba mejorar mi inglés para aplicar a una beca en el extranjero. Sofía me ayudó a organizar un plan intensivo en solo tres meses y logramos resultados que ni yo imaginaba. Ahora no solo obtuve la beca, sino que me siento capaz de mantener conversaciones complejas sin quedarme en blanco.”</blockquote>
+                <p class="t-meta">Javier R. 27 años</p>
+              </li>
+              <li class="t-slide">
+                <img class="t-avatar" src="../Clases de Inglés con Sofía/media/testimonial-4.jpg.png" alt="Diego L.">
+                <blockquote class="t-quote">“Siempre había estudiado inglés en el colegio, pero sentía que no avanzaba. Aquí las clases son dinámicas, prácticas y con situaciones reales. Pasé de evitar hablar en inglés a ser la primera en levantar la mano para participar en discusiones y debates.”</blockquote>
+                <p class="t-meta">Camila S. 21 años</p>
+              </li>
+              <li class="t-slide">
+                <img class="t-avatar" src="../Clases de Inglés con Sofía/media/testimonial-5.jpg.png" alt="Javier G.">
+                <blockquote class="t-quote">“Mi hijo siempre fue tímido para hablar, incluso en español. Desde que empezó las clases con Sofía, no solo mejoró su inglés, sino también su confianza para expresarse. Me emociona escucharlo cantar canciones en inglés y contarme lo que aprendió en clase cada semana.”</blockquote>
+                <p class="t-meta">Carlos T. 45 años (padre de alumno)</p>
+              </li>
+            </ul>
+          </div>
+
+          <button class="t-btn t-next" aria-label="Siguiente">›</button>
+
+          <div class="t-dots">
+            <button class="t-dot" aria-selected="true"></button>
+            <button class="t-dot"></button>
+            <button class="t-dot"></button>
+            <button class="t-dot"></button>
+            <button class="t-dot"></button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- DERECHA: Formulario -->
+      <div class="contact__right">
+        <form class="contact__form" id="formulario-contacto" action="https://formspree.io/f/mblkkwlr" method="POST">
+          <div class="form__group">
+            <label for="name" class="form__label">Nombre</label>
+            <input type="text" id="name" name="name" class="form__input" required />
+          </div>
+          <div class="form__group">
+            <label for="email" class="form__label">Correo Electrónico</label>
+            <input type="email" id="email" name="email" class="form__input" required />
+          </div>
+          <div class="form__group">
+            <label for="phone" class="form__label">Teléfono (Opcional)</label>
+            <input id="phone" type="tel" name="phone_display" class="form__input" />
+            <input type="hidden" name="full_phone" />
+          </div>
+          <div class="form__group">
+            <label for="plan-selection" class="form__label">Plan de Interés</label>
+            <select id="plan-selection" name="plan" class="form__input" required>
+              <option value="" disabled selected>Selecciona un plan...</option>
+              <option value="Inglés Infantil">Inglés Infantil</option>
+              <option value="Inglés Básico">Inglés Básico</option>
+              <option value="Inglés Intermedio">Inglés Intermedio</option>
+              <option value="Inglés Avanzado">Inglés Avanzado</option>
+            </select>
+          </div>
+          <div class="form__group">
+            <label for="message" class="form__label">Mensaje</label>
+            <textarea id="message" name="message" rows="5" class="form__input" required></textarea>
+          </div>
+          <button type="submit" class="btn">Enviar Mensaje</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer__container container">
+      <p class="footer__copy">&copy; 2025 Clases de Inglés con Sofía. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <div class="popup-overlay" id="popup-overlay">
+    <div class="popup-modal" id="popup-message" role="alert" aria-live="assertive">
+      <p id="popup-text">¡Mensaje enviado correctamente!</p>
+      <button id="popup-close" class="popup-close-btn">De acuerdo</button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput.min.js"></script>
+    <script src="main.js" defer></script>
+    <script src="Box-Planes.js" defer></script>
+    <script src="Paises-Nun-Telefono.js" defer></script>
+    <script src="testimonials-carousel.js" defer></script>
+
+</body>
+
+</html>
