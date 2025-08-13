@@ -1,86 +1,147 @@
-// Carrusel de Testimonios con bucle infinito real (clones)
+// testimonials-carousel.js — loop infinito suave con clones + pausa al pasar encima
 document.addEventListener('DOMContentLoaded', () => {
-  const root = document.querySelector('.testimonials-carousel');
-  if (!root) return;
+  document.querySelectorAll('.testimonials-carousel').forEach(initCarousel);
+});
 
-  const viewport = root.querySelector('.t-viewport');
-  const track = root.querySelector('.t-track');
-  const originals = Array.from(root.querySelectorAll('.t-slide')); // 5 reales
+function initCarousel(root) {
+  const track   = root.querySelector('.t-track');
   const prevBtn = root.querySelector('.t-prev');
   const nextBtn = root.querySelector('.t-next');
-  const dots = Array.from(root.querySelectorAll('.t-dot'));
+  const dots    = Array.from(root.querySelectorAll('.t-dot'));
 
-  // 1) Clonar extremos
-  const firstClone = originals[0].cloneNode(true);
-  const lastClone  = originals[originals.length - 1].cloneNode(true);
-  firstClone.classList.add('is-clone');
-  lastClone.classList.add('is-clone');
+  // --- montar clones ---
+  const originalSlides = Array.from(track.children); // .t-slide
+  const total = originalSlides.length;
 
-  track.insertBefore(lastClone, originals[0]); // [last*] 1 2 3 4 5
-  track.appendChild(firstClone);               // [last*] 1 2 3 4 5 [1*]
+  const firstClone = originalSlides[0].cloneNode(true);
+  const lastClone  = originalSlides[total - 1].cloneNode(true);
+  track.insertBefore(lastClone, originalSlides[0]);
+  track.appendChild(firstClone);
 
-  const slides = Array.from(track.querySelectorAll('.t-slide')); // incluye clones
+  const slides = Array.from(track.children); // ahora: [lastClone, s1, s2, ..., sN, firstClone]
 
-  // 2) Estado
-  let index = 1;               // empezamos en la primera REAL (después del lastClone)
-  let autoId;
-  const interval = 5000;
+  // cada slide ya es flex: 0 0 100% en tu CSS
+  let index = 1;              // arrancamos en el PRIMER real
+  let animating = false;
 
-  // 3) Helpers
-  function slideWidth() {
-    return viewport.getBoundingClientRect().width;
+  function setTransform(withTransition) {
+    track.style.transition = withTransition ? 'transform .5s ease-in-out' : 'none';
+    track.style.transform = `translateX(-${index * 100}%)`;
   }
 
-  function setTransform(animate = true) {
-    const x = -index * slideWidth();
-    track.style.transition = animate ? 'transform 0.5s ease-in-out' : 'none';
-    track.style.transform = `translateX(${x}px)`;
-    // actualizar dots según índice real
-    const real = realIndex();
-    dots.forEach((d, i) => d.setAttribute('aria-selected', i === real ? 'true' : 'false'));
+  // posicion inicial sin animacion
+  setTransform(false);
+
+  // --- navegación ---
+  function realIndex() {          // 0..total-1
+    return (index - 1 + total) % total;
+  }
+  function updateDots() {
+    dots.forEach((d, i) => d.setAttribute('aria-selected', i === realIndex() ? 'true' : 'false'));
+  }
+  updateDots();
+
+  function goNext() {
+    if (animating) return;
+    animating = true;
+    index += 1;
+    setTransform(true);
   }
 
-  function realIndex() {
-    // mapear índice con clones a índice real (0..originals.length-1)
-    if (index <= 0) return originals.length - 1;             // está en lastClone → real=4
-    if (index >= originals.length + 1) return 0;             // está en firstClone → real=0
-    return index - 1;                                        // 1..5 → 0..4
+  function goPrev() {
+    if (animating) return;
+    animating = true;
+    index -= 1;
+    setTransform(true);
   }
 
-  function next() { index++; setTransform(true); }
-  function prev() { index--; setTransform(true); }
-
-  // 4) Saltos sin animación cuando caemos en clones
+  // salto invisible al terminar transición si caemos en clones
   track.addEventListener('transitionend', () => {
-    if (slides[index].classList.contains('is-clone')) {
-      if (index === 0) {
-        // estábamos en lastClone → saltar al último real
-        index = originals.length;
-      } else if (index === originals.length + 1) {
-        // estábamos en firstClone → saltar al primero real
-        index = 1;
-      }
-      setTransform(false); // reposicionar sin animación
+    animating = false;
+    // si estamos en el clone de la derecha (último)
+    if (index === total + 1) {
+      index = 1;              // salta al primer real
+      setTransform(false);
+      // forzar reflow para no cortar próximas transiciones
+      track.getBoundingClientRect();
+      track.style.transition = 'transform .5s ease-in-out';
     }
+    // si estamos en el clone de la izquierda (primero)
+    if (index === 0) {
+      index = total;          // salta al último real
+      setTransform(false);
+      track.getBoundingClientRect();
+      track.style.transition = 'transform .5s ease-in-out';
+    }
+    updateDots();
   });
 
-  // 5) Auto-play + controles
-  function start() { clearInterval(autoId); autoId = setInterval(next, interval); }
-  function stop()  { clearInterval(autoId); }
+  // botones
+  nextBtn && nextBtn.addEventListener('click', goNext);
+  prevBtn && prevBtn.addEventListener('click', goPrev);
 
-  nextBtn.addEventListener('click', () => { stop(); next(); start(); });
-  prevBtn.addEventListener('click', () => { stop(); prev(); start(); });
+  // dots
   dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => { stop(); index = i + 1; setTransform(true); start(); });
+    dot.addEventListener('click', () => {
+      if (animating) return;
+      animating = true;
+      // deseado: ir al slide real i
+      index = i + 1;          // porque tenemos 1 offset por el clone inicial
+      setTransform(true);
+    });
   });
 
-  root.addEventListener('mouseenter', stop);
-  root.addEventListener('mouseleave', start);
+  // --- autoplay infinito con requestAnimationFrame ---
+  const INTERVAL = 5000;
+  let hoverPaused = false;
+  let rafId = null;
+  let last = performance.now();
+  let acc = 0;
 
-  // 6) Recalcular en resize manteniendo la slide actual
-  window.addEventListener('resize', () => setTransform(false));
+  function loop(now) {
+    if (!hoverPaused && !animating) {
+      acc += now - last;
+      if (acc >= INTERVAL) {
+        acc %= INTERVAL;
+        goNext();
+      }
+    } else if (hoverPaused) {
+      acc = 0; // evita salto al soltar
+    }
+    last = now;
+    rafId = requestAnimationFrame(loop);
+  }
+  function start() {
+    if (rafId) return;
+    last = performance.now();
+    acc = 0;
+    rafId = requestAnimationFrame(loop);
+  }
+  function stop() {
+    if (!rafId) return;
+    cancelAnimationFrame(rafId);
+    rafId = null;
+  }
 
-  // 7) Inicial
-  setTransform(false); // posicionar en la primera REAL sin animación
+  // pausa SOLO con interacción del usuario
+  root.addEventListener('pointerenter', () => { hoverPaused = true; });
+  root.addEventListener('pointerleave', () => { hoverPaused = false; });
+
+  root.addEventListener('touchstart', () => { hoverPaused = true; }, {passive: true});
+  root.addEventListener('touchend',   () => { hoverPaused = false; }, {passive: true});
+  root.addEventListener('touchcancel',() => { hoverPaused = false; }, {passive: true});
+
+  // robustez al volver de background
+  document.addEventListener('visibilitychange', () => {
+    last = performance.now();
+    acc = 0;
+    // re-sincroniza sin animación
+    setTransform(false);
+  });
+  window.addEventListener('pagehide', stop);
+  window.addEventListener('pageshow', () => { setTransform(false); start(); });
+  window.addEventListener('resize',   () => setTransform(false));
+
+  // init
   start();
-});
+}
