@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.intlTelInput(phoneInputField, {
     initialCountry: "es",
-    preferredCountries: ["es", "mx", "ar", "co", "pe", "cl", "us"],
+    preferredCountries: ["es", "pe", "ar", "co", "mx", "cl", "us"],
     separateDialCode: true,
     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js"
   });
